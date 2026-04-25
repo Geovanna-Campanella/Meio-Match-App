@@ -1,35 +1,42 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function WelcomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={['#080018', '#12003b', '#080018']}
+        style={styles.container}
+      >
+        <Image
+          source={require('../assets/background-dna.png')} // usa essa imagem que você mandou
+          style={styles.backgroundImage}
+        />
 
-      {/* Ícone / logo area */}
-      <View style={styles.logoArea}>
-        <Text style={styles.logoEmoji}>🧬</Text>
-        <Text style={styles.title}>Meio Match</Text>
-        <Text style={styles.subtitle}>Descobrindo a divisão celular</Text>
-      </View>
+        {/* Ícone / logo area */}
+        <View style={styles.logoArea}>
+          <Image
+            source={require('../assets/logo-meio-match.png')}
+            style={styles.logo}
+          />
+          <Text style={styles.title}>Meio Match</Text>
+          <Text style={styles.subtitle}>Descobrindo a divisão celular</Text>
+        </View>
 
-      {/* Botões */}
-      <View style={styles.buttonArea}>
+        {/* Botões */}
+        <View style={styles.buttonArea}>
 
-        <TouchableOpacity
-          style={styles.buttonGreen}
-          onPress={() => navigation.navigate('Register')}
-        >
-          <Text style={styles.buttonTitleDark}>Criar Célula</Text>
-          <Text style={styles.buttonSubtitleDark}>cadastre-se</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonGreen}
+            onPress={() => navigation.navigate('Register')}
+          >
+            <Text style={styles.buttonTitleDark}>Criar Célula</Text>
+            <Text style={styles.buttonSubtitleDark}>cadastre-se</Text>
+          </TouchableOpacity>
 
-      </View>
+        </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -38,17 +45,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0D0B2A',
-    justifyContent: 'space-between',
-    paddingVertical: 60,
+    justifyContent: 'center',
     paddingHorizontal: 24,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    left: "-50%",
+    top: "-28%",
+    width: "100%",
+    height: '100%',
+    resizeMode: 'contain',
+    opacity: 0.3, // deixa suave no fundo
+
+    transform: [{ rotate: '25deg' }]
   },
   logoArea: {
     alignItems: 'center',
-    marginTop: 40,
+    marginBottom: 80,
+    zIndex: 1,
   },
-  logoEmoji: {
-    fontSize: 80,
+  logo: {
+    width: 200,
+    height: 200,
     marginBottom: 16,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 40,
@@ -61,7 +81,8 @@ const styles = StyleSheet.create({
     color: '#4ECBA0', // verde-teal
   },
   buttonArea: {
-    gap: 16, // espaço entre os botões
+    gap: 16,
+    zIndex: 1,
   },
   buttonGreen: {
     backgroundColor: '#4ECBA0', // verde

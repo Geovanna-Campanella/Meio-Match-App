@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Alert,
   ScrollView,
+  Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -56,6 +57,11 @@ export default function RegisterScreen({ navigation, setIsLogged }) {
         <View style={styles.card}>
     
           <View style={styles.greenLine} />
+
+          <Image
+            source={require('../assets/logo-meio-match2.png')}
+            style={styles.logo}
+          />
 
           <Text style={styles.title}>Criar Célula</Text>
           <Text style={styles.subtitle}>registre seu material genético</Text>
@@ -126,11 +132,18 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginBottom: 16,
   },
+  logo: {
+    width: 70,
+    height: 70,
+    marginBottom: 16,
+    resizeMode: 'contain',
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 4,
+    marginTop: '-2%',
   },
   subtitle: {
     fontSize: 14,

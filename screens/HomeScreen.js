@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 0,
+    marginBottom: '2%',
     letterSpacing: 1,
   },
 
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 16,
     marginBottom: 24,
-    marginTop: '-5%',
+    marginTop: '0%',
   },
   cardIcon: {
     fontSize: 40,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   exploreGrid: {
     flexDirection: 'row',
     gap: 12,
-    marginTop: '-5%',
+    marginTop: '0%',
   },
   exploreCard: {
     flex: 1,
