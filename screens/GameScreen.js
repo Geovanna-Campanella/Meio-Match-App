@@ -6,6 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // 👈 ADICIONADO
 
 ///////////////
@@ -284,16 +285,16 @@ function Footer({ navigation }) {
   return (
     <View style={styles.bottomBar}>
       <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.navIconActive}>⌂</Text>
+        <Feather name="home" size={24} color="#A78BFA" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
-        <Text style={styles.navIcon}>📚</Text>
+      <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Conteudo')}>
+        <Feather name="book-open" size={24} color="#A78BFA" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Game')}>
-        <Text style={styles.navIcon}>★</Text>
+        <Feather name="star" size={24} color="#6EE7B7" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
-        <Text style={styles.navIcon}>👤</Text>
+        <Feather name="user" size={24} color="#A78BFA" />
       </TouchableOpacity>
     </View>
   );

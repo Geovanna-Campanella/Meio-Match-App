@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,18 +17,28 @@ export default function ProfileScreen({ navigation }) {
 
   const [totalScore, setTotalScore] = useState(0);
   const [lastResult, setLastResult] = useState('0/0');
+  const [nome, setNome] = useState('');
 
-  useEffect(() => {
-    const loadData = async () => {
-      const storedScore = await AsyncStorage.getItem('totalScore');
-      const storedLast = await AsyncStorage.getItem('lastResult');
+  useFocusEffect(
+    useCallback(() => {
+      const loadData = async () => {
+        try {
+          const storedNome = await AsyncStorage.getItem('userNome');
+          const storedScore = await AsyncStorage.getItem('totalScore');
+          const storedLast = await AsyncStorage.getItem('lastResult');
 
-      if (storedScore) setTotalScore(parseInt(storedScore));
-      if (storedLast) setLastResult(storedLast);
-    };
+          if (storedNome) setNome(storedNome);
+          if (storedScore) setTotalScore(parseInt(storedScore));
+          if (storedLast) setLastResult(storedLast);
 
-    loadData();
-  }, []);
+        } catch (e) {
+          console.log('Erro ao carregar dados', e);
+        }
+      };
+
+      loadData();
+    }, [])
+  );
 
   // 🏆 SISTEMA DE NÍVEIS
   const LEVELS = [
@@ -52,13 +65,23 @@ export default function ProfileScreen({ navigation }) {
 
         {/* 👤 USER */}
         <View style={styles.cardUsuario}>
+          <TouchableOpacity
+            style={styles.iconeConfig}
+            onPress={() => navigation.navigate('ProfileEdit')}
+          >
+            <Feather name="settings" size={22} color="#A78BFA" />
+          </TouchableOpacity>
+
           <View style={styles.avatar}>
-            <Text style={styles.avatarTexto}>M</Text>
+            <Text style={styles.avatarTexto}>
+              {nome ? nome[0].toUpperCase() : 'U'}
+            </Text>
           </View>
 
           <View>
-            <Text style={styles.nomeUsuario}>Maria</Text>
-            <Text style={styles.emailUsuario}>maria@gmail.com</Text>
+            <Text style={styles.nomeUsuario}>
+              {nome || 'Usuário'}
+            </Text>
           </View>
         </View>
 
@@ -93,7 +116,6 @@ export default function ProfileScreen({ navigation }) {
           <View style={[styles.barraPreenchida, { width: `${progress * 100}%` }]} />
         </View>
 
-        {/* 🎯 ÚLTIMA PARTIDA */}
         <View style={styles.grid}>
           <TouchableOpacity style={[styles.cardAtalho, styles.cardVerde]}>
             <Text style={styles.iconAtalho}>🎯</Text>
@@ -101,7 +123,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.resultadoMeiose}>{lastResult}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.cardAtalho, styles.cardRosa]}>
+          <TouchableOpacity style={[styles.cardAtalho, styles.cardRosa]} onPress={() => navigation.navigate('Conteudo')}>
             <Text style={styles.iconAtalho}>📖</Text>
             <Text style={styles.tituloAtalho}>Estude</Text>
             <Text style={styles.subAtalho}>
@@ -113,21 +135,18 @@ export default function ProfileScreen({ navigation }) {
       </View>
 
       {/* NAV */}
-      <View style={styles.barraInferior}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.navIcone}>⌂</Text>
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
+          <Feather name="home" size={24} color="#A78BFA" />
         </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.navIcone}>📚</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Conteudo')}>
+          <Feather name="book-open" size={24} color="#A78BFA" />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-          <Text style={styles.navIcone}>★</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Game')}>
+          <Feather name="star" size={24} color="#A78BFA" />
         </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={[styles.navIcone, styles.navAtivo]}>👤</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
+          <Feather name="user" size={24} color="#6EE7B7" />
         </TouchableOpacity>
       </View>
 
@@ -161,6 +180,13 @@ const styles = StyleSheet.create({
     marginBottom: 28,
     borderWidth: 1,
     borderColor: '#2D2870',
+  },
+  iconeConfig: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    padding: 6,
+    borderRadius: 20,
   },
   avatar: {
     width: 64,
@@ -291,8 +317,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
-  // ---- Barra inferior ----
-  barraInferior: {
+  //BOTTOM BAR
+  bottomBar: {
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -309,11 +335,12 @@ const styles = StyleSheet.create({
   navItem: {
     padding: 8,
   },
-  navIcone: {
-    fontSize: 24,
-    color: '#6B5FA0',  // roxo apagado = inativo
+  navIconActive: {
+    fontSize: 26,
+    color: '#4ECBA0',
   },
-  navAtivo: {
-    color: '#4ECBA0',  // verde = ativo
+  navIcon: {
+    fontSize: 22,
+    color: '#6B5FA0',
   },
 });

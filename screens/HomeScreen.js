@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
+
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,16 +18,18 @@ export default function HomeScreen({ navigation }) {
   //BUSCANDO OS PONTOS DE SCORE
   const [totalScore, setTotalScore] = useState(0);
 
-  useEffect(() => {
-    const loadScore = async () => {
-      const stored = await AsyncStorage.getItem('totalScore');
-      if (stored !== null) {
-        setTotalScore(parseInt(stored));
-      }
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const loadScore = async () => {
+        const stored = await AsyncStorage.getItem('totalScore');
+        if (stored !== null) {
+          setTotalScore(parseInt(stored));
+        }
+      };
 
-    loadScore();
-  }, []);
+      loadScore();
+    }, [])
+  );
 
   //////////////
 
@@ -91,7 +97,7 @@ export default function HomeScreen({ navigation }) {
         {/* CONTINUAR */}
         <Text style={styles.sectionTitle}>CONTINUAR</Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Game')}>
           <LinearGradient
             colors={['#46157b', '#2e0358']}
             locations={[0, 0.6, 1]}
@@ -113,7 +119,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.sectionTitle}>EXPLORE</Text>
 
         <View style={styles.exploreGrid}>
-          <TouchableOpacity style={[styles.exploreCard, styles.cardRed]}>
+          <TouchableOpacity style={[styles.exploreCard, styles.cardRed]} onPress={() => navigation.navigate('Conteudo')}>
             <Text style={styles.exploreIcon}>📖</Text>
             <Text style={styles.exploreTitle}>Estude</Text>
             <Text style={styles.exploreSubtitle}>
@@ -121,7 +127,7 @@ export default function HomeScreen({ navigation }) {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.exploreCard, styles.cardTeal]}>
+          <TouchableOpacity style={[styles.exploreCard, styles.cardTeal]} onPress={() => navigation.navigate('Profile')}>
             <Text style={styles.exploreIcon}>🎯</Text>
             <Text style={styles.exploreTitle}>Progresso</Text>
             <Text style={styles.exploreSubtitle}>
@@ -135,19 +141,19 @@ export default function HomeScreen({ navigation }) {
 
       </View>
 
-      {/* BARRA FIXA */}
+      {/* FOOTER */}
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIconActive}>⌂</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
+          <Feather name="home" size={24} color="#6EE7B7" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>📚</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Conteudo')}>
+          <Feather name="book-open" size={24} color="#A78BFA" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Game')}>
-          <Text style={styles.navIcon}>★</Text>
+          <Feather name="star" size={24} color="#A78BFA" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.navIcon}>👤</Text>
+          <Feather name="user" size={24} color="#A78BFA" />
         </TouchableOpacity>
       </View>
 

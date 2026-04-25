@@ -7,7 +7,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-// navigation é passado automaticamente pelo React Navigation
 export default function WelcomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
@@ -22,22 +21,12 @@ export default function WelcomeScreen({ navigation }) {
       {/* Botões */}
       <View style={styles.buttonArea}>
 
-        {/* Botão Criar Célula → vai para tela de Registro */}
         <TouchableOpacity
           style={styles.buttonGreen}
           onPress={() => navigation.navigate('Register')}
         >
           <Text style={styles.buttonTitleDark}>Criar Célula</Text>
           <Text style={styles.buttonSubtitleDark}>cadastre-se</Text>
-        </TouchableOpacity>
-
-        {/* Botão Iniciar Divisão → vai para tela de Login */}
-        <TouchableOpacity
-          style={styles.buttonPurple}
-          onPress={() => navigation.navigate('Login')}
-        >
-          <Text style={styles.buttonTitleLight}>Iniciar Divisão</Text>
-          <Text style={styles.buttonSubtitleLight}>Já tenho conta</Text>
         </TouchableOpacity>
 
       </View>
@@ -48,7 +37,7 @@ export default function WelcomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0D0B2A', // fundo escuro azul-roxo
+    backgroundColor: '#0D0B2A',
     justifyContent: 'space-between',
     paddingVertical: 60,
     paddingHorizontal: 24,

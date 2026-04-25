@@ -9,19 +9,38 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterScreen({ navigation }) {
   const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  function handleCadastro() {
-
-    if (senha == confirmarSenha){
-      navigation.navigate('Home');
+  const saveUser = async (nome, senha) => {
+    try {
+      await AsyncStorage.setItem('userNome', nome);
+      await AsyncStorage.setItem('userSenha', senha);
+    } catch (e) {
+      console.log('Erro ao salvar usuário', e);
     }
-     
+  };
+
+  async function handleCadastro() {
+    if (senha !== confirmarSenha) {
+      Alert.alert('Erro', 'As senhas não coincidem!');
+      return;
+    }
+
+    try {
+      await AsyncStorage.setItem('userNome', nome);
+      await AsyncStorage.setItem('userSenha', senha);
+      await AsyncStorage.setItem('userLogado', 'true');
+
+      navigation.replace('Home');
+
+    } catch (e) {
+      console.log('Erro ao salvar usuário', e);
+    }
   }
 
   return (
@@ -38,6 +57,7 @@ export default function RegisterScreen({ navigation }) {
 
           <Text style={styles.title}>Criar Célula</Text>
           <Text style={styles.subtitle}>registre seu material genético</Text>
+          <Text style={styles.subtitle}>No Meio-Match, você irá aprender tudo sobre o que é e como é realizada a meiose celular</Text>
 
           
           <TextInput
@@ -46,16 +66,6 @@ export default function RegisterScreen({ navigation }) {
             placeholderTextColor="#6B5FA0"
             value={nome}
             onChangeText={setNome} 
-          />
-          
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#6B5FA0"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address" 
-            autoCapitalize="none" 
           />
           
           <TextInput
@@ -80,13 +90,6 @@ export default function RegisterScreen({ navigation }) {
             <Text style={styles.buttonTitle}>Replicar DNA</Text>
             <Text style={styles.buttonSubtitle}>cadastre-se</Text>
           </TouchableOpacity>
-          
-          <View style={styles.linkArea}>
-            <Text style={styles.linkText}>Já tem um célula? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.linkHighlight}>Inicie Divisão</Text>
-            </TouchableOpacity>
-          </View>
 
         </View>
       </ScrollView>
