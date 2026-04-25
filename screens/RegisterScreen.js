@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function RegisterScreen({ navigation }) {
+export default function RegisterScreen({ navigation, setIsLogged }) {
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -35,7 +35,9 @@ export default function RegisterScreen({ navigation }) {
       await AsyncStorage.setItem('userNome', nome);
       await AsyncStorage.setItem('userSenha', senha);
       await AsyncStorage.setItem('userLogado', 'true');
+      await AsyncStorage.setItem('userLogado', 'true');
 
+      setIsLogged(true);
       navigation.replace('Home');
 
     } catch (e) {

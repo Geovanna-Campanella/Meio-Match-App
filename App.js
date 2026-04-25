@@ -7,7 +7,6 @@ import { View, ActivityIndicator } from 'react-native';
 // telas
 import WelcomeScreen from './screens/WelcomeScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import GameScreen from './screens/GameScreen';
@@ -50,14 +49,17 @@ export default function App() {
             <Stack.Screen name="Game" component={GameScreen} />
             <Stack.Screen name="Conteudo" component={ConteudoScreen} />
             <Stack.Screen name="Detail" component={DetailScreen} />
-            <Stack.Screen name="ProfileEdit" component={ProfileEditScreen} />
+            <Stack.Screen name="ProfileEdit">
+              {(props) => <ProfileEditScreen {...props} setIsLogged={setIsLogged} />}
+            </Stack.Screen>
           </>
         ) : (
           // 🧬 USUÁRIO NÃO LOGADO
           <>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register">
+              {(props) => <RegisterScreen {...props} setIsLogged={setIsLogged} />}
+            </Stack.Screen>
           </>
         )}
 

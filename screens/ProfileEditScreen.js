@@ -10,7 +10,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 
-export default function ProfileEditScreen({ navigation }) {
+export default function ProfileEditScreen({ navigation, setIsLogged }) {
   const [nome, setNome] = useState('');
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function ProfileEditScreen({ navigation }) {
     }
 
     await AsyncStorage.setItem('userNome', nome);
-    Alert.alert('Sucesso', 'Nome atualizado!');
+
     navigation.goBack();
   };
 
@@ -42,6 +42,9 @@ export default function ProfileEditScreen({ navigation }) {
             await AsyncStorage.removeItem('userLogado');
             await AsyncStorage.removeItem('totalScore');
             await AsyncStorage.removeItem('lastResult');
+            await AsyncStorage.removeItem('userLogado');
+
+            setIsLogged(false);
 
             navigation.replace('Welcome');
 
