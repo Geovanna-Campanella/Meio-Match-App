@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
@@ -75,7 +76,7 @@ export default function GameScreen({navigation}) {
 
   const shuffledDescriptions = useMemo(() => {
     return shuffle(currentPhase);
-  }, [phaseIndex]);
+  }, [currentPhase]);
 
   // SALVA O SCORE TOTALL
   const saveScore = async (newScore) => {
@@ -170,8 +171,18 @@ export default function GameScreen({navigation}) {
   if (screen === 'intro') {
     return (
       <LinearGradient colors={['#080018', '#12003b', '#080018']} style={styles.container}>
-        <View style={styles.content}>
+        <Image
+          source={require('../assets/background-dna2.png')} // usa essa imagem que você mandou
+          style={styles.backgroundImage}
+        />
+        <View style={[styles.content, { justifyContent: 'center' }]}>
           <View>
+            <View style={styles.logoArea}>
+              <Image
+                source={require('../assets/logo-meio-match.png')}
+                style={styles.logo}
+              />
+            </View>
             <Text style={styles.title}>
               Interligue os conceitos{"\n"}
               <Text style={{ color: '#7ef9c6' }}>sobre meiose</Text>
@@ -202,7 +213,11 @@ export default function GameScreen({navigation}) {
   if (screen === 'result') {
     return (
       <LinearGradient colors={['#080018', '#12003b', '#080018']} style={styles.container}>
-        <View style={styles.content}>
+        <Image
+          source={require('../assets/background-dna2.png')} // usa essa imagem que você mandou
+          style={styles.backgroundImage}
+        />
+        <View style={[styles.content, { justifyContent: 'center' }]}>
           <View style={styles.resultCard}>
             <Text style={styles.resultTitle}>Parabéns!</Text>
             <Text style={styles.resultScore}>
@@ -227,14 +242,15 @@ export default function GameScreen({navigation}) {
   return (
     <LinearGradient colors={['#080018', '#12003b', '#080018']} style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.progressBg}>
-          <View style={[styles.progressFill, { width: `${progress}%` }]} />
+        <View style={styles.header}>
+          <View style={styles.progressBg}>
+            <View style={[styles.progressFill, { width: `${progress}%` }]} />
+          </View>
+
+          <Text style={styles.phaseText}>{phaseIndex + 1}/4</Text>
+
+          <Text style={styles.subtitle}>Relacione os conceitos</Text>
         </View>
-
-        <Text style={styles.phaseText}>{phaseIndex + 1}/4</Text>
-
-        <Text style={styles.subtitle}>Relacione os conceitos</Text>
-
         <View style={styles.gameArea}>
           <View style={styles.row}>
             <View style={styles.column}>
@@ -272,7 +288,7 @@ export default function GameScreen({navigation}) {
         </View>
 
         <TouchableOpacity style={styles.skip} onPress={handleSkip}>
-          <Text style={{ color: '#000' }}>Pular</Text>
+          <Text style={{ color: '#000', fontWeight: "bolder" }}>Pular</Text>
         </TouchableOpacity>
 
         <Footer navigation={navigation} active="star" />
@@ -310,7 +326,24 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingBottom: 90,
-    
+    gap: 15
+  },
+
+  backgroundImage: {
+    position: 'absolute',
+    left: "-20%",
+    top: "-28%",
+    width: "100%",
+    height: '100%',
+    resizeMode: 'contain',
+    opacity: 0.3, // deixa suave no fundo
+
+    transform: [{ rotate: '55deg' }]
+  },
+
+  header: {
+    marginTop: 40,
+    gap: 8,
   },
 
   title: { color: '#fff', fontSize: 24, textAlign: 'center' },
@@ -330,7 +363,7 @@ const styles = StyleSheet.create({
   glowText: { fontWeight: 'bold', fontSize: 16 },
 
   infoBox: {
-    marginTop: 30,
+    marginTop: 40,
     borderWidth: 1,
     borderColor: '#7b1fa2',
     padding: 16,
@@ -340,7 +373,13 @@ const styles = StyleSheet.create({
   infoTitle: { color: '#b388ff', fontWeight: 'bold' },
   infoText: { color: '#ccc', marginTop: 8 },
 
-  progressBg: { height: 8, backgroundColor: '#333', borderRadius: 10 },
+  progressBg: { 
+    height: 8, 
+    backgroundColor: '#333', 
+    borderRadius: 10, 
+    
+  },
+
   progressFill: { height: '100%', backgroundColor: '#7ef9c6' },
 
   phaseText: { color: '#7ef9c6', textAlign: 'right', marginTop: 5 },
@@ -377,7 +416,7 @@ const styles = StyleSheet.create({
   correct: { backgroundColor: '#7ef9c6' },
   wrong: { backgroundColor: '#ff4d6d' },
 
-  skip: { alignSelf: 'flex-end', backgroundColor: '#7ef9c6', padding: 10, borderRadius: 20 },
+  skip: { alignSelf: 'flex-end', backgroundColor: '#7ef9c6', padding: 15, paddingHorizontal: 30, borderRadius: 20, marginTop: 30,},
 
   resultCard: { backgroundColor: '#1f8f7a', padding: 30, borderRadius: 20, alignItems: 'center' },
   resultTitle: { color: '#7ef9c6', fontSize: 22 },
@@ -416,4 +455,16 @@ const styles = StyleSheet.create({
     color: '#6B5FA0',
   },
 
+  logoArea: {
+    alignItems: 'center',
+    marginBottom: 0,
+    zIndex: 1,
+  },
+
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 0,
+    resizeMode: 'contain',
+  },
 });

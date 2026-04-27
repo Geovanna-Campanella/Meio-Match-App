@@ -11,6 +11,7 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  Image,
 } from 'react-native';
 
 export default function ProfileScreen({ navigation }) {
@@ -118,13 +119,19 @@ export default function ProfileScreen({ navigation }) {
 
         <View style={styles.grid}>
           <TouchableOpacity style={[styles.cardAtalho, styles.cardVerde]}>
-            <Text style={styles.iconAtalho}>🎯</Text>
+            <Image
+              source={require('../assets/icon-progress.png')}
+              style={styles.exploreIconImage}
+            />
             <Text style={styles.tituloAtalho}>Última Meiose</Text>
             <Text style={styles.resultadoMeiose}>{lastResult}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.cardAtalho, styles.cardRosa]} onPress={() => navigation.navigate('Conteudo')}>
-            <Text style={styles.iconAtalho}>📖</Text>
+            <Image
+              source={require('../assets/icon-estudo.png')}
+              style={styles.exploreIconImage}
+            />
             <Text style={styles.tituloAtalho}>Estude</Text>
             <Text style={styles.subAtalho}>
               Aprenda sobre meiose
@@ -162,11 +169,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0D0B2A',
   },
+
   content: {
     flex: 1,
     padding: 20,
     paddingBottom: 90,
     justifyContent: 'flex-start',
+    marginTop: 20, 
   },
 
   // ---- Card do usuário ----
@@ -296,9 +305,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c75088',
   },
-  iconAtalho: {
-    fontSize: 36,
-    marginBottom: 8,
+  exploreIconImage: {
+    width: 70,
+    height: 70,
+    marginBottom: 0,
+    resizeMode: 'contain',
   },
   tituloAtalho: {
     color: '#FFFFFF',

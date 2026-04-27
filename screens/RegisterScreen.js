@@ -27,6 +27,11 @@ export default function RegisterScreen({ navigation, setIsLogged }) {
   };
 
   async function handleCadastro() {
+    if (!nome || !senha || !confirmarSenha) {
+      Alert.alert('Erro', 'Preencha todos os campos!');
+      return;
+    }
+
     if (senha !== confirmarSenha) {
       Alert.alert('Erro', 'As senhas não coincidem!');
       return;

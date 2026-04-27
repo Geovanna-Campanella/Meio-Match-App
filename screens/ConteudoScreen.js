@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
+  Image,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -61,7 +62,14 @@ function Card({ item, navigation }) {
     >
       {({ pressed }) => (
         <>
-          <View style={styles.book} />
+          <Image
+            source={
+              pressed
+                ? require('../assets/icon-book-active.png')
+                : require('../assets/icon-book.png')
+            }
+            style={styles.bookIcon}
+          />
 
           <View style={{ flex: 1 }}>
             <Text
@@ -154,6 +162,7 @@ const styles = StyleSheet.create({
   scroll: {
     padding: 20,
     paddingBottom: 120, // evita sobrepor com footer
+    marginTop: 20,
   },
 
   title: {
@@ -208,12 +217,11 @@ const styles = StyleSheet.create({
     color: '#065F46',
   },
 
-  book: {
-    width: 40,
-    height: 50,
-    backgroundColor: '#A78BFA',
-    borderRadius: 6,
+  bookIcon: {
+    width: 60,
+    height: 60,
     marginRight: 12,
+    resizeMode: 'contain',
   },
 
   cardTitle: {

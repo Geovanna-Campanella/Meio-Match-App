@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Image,
 } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
@@ -105,7 +106,10 @@ export default function HomeScreen({ navigation }) {
             end={{ x: 1, y: 1 }}
             style={styles.cardContinuar}
           >
-            <Text style={styles.cardIcon}>🃏</Text>
+            <Image
+              source={require('../assets/icon-meiose.png')}
+              style={styles.cardIconImage}
+            />
             <View>
               <Text style={styles.cardTitle}>Meiose</Text>
               <Text style={styles.cardSubtitle}>
@@ -120,7 +124,10 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.exploreGrid}>
           <TouchableOpacity style={[styles.exploreCard, styles.cardRed]} onPress={() => navigation.navigate('Conteudo')}>
-            <Text style={styles.exploreIcon}>📖</Text>
+            <Image
+              source={require('../assets/icon-estudo.png')}
+              style={styles.exploreIconImage}
+            />
             <Text style={styles.exploreTitle}>Estude</Text>
             <Text style={styles.exploreSubtitle}>
               Aprenda sobre o conteúdo de meiose
@@ -128,7 +135,10 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.exploreCard, styles.cardTeal]} onPress={() => navigation.navigate('Profile')}>
-            <Text style={styles.exploreIcon}>🎯</Text>
+            <Image
+              source={require('../assets/icon-progress.png')}
+              style={styles.exploreIconImage}
+            />
             <Text style={styles.exploreTitle}>Progresso</Text>
             <Text style={styles.exploreSubtitle}>
               Veja o seu progresso para melhorar!
@@ -172,6 +182,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 90,
     justifyContent: 'space-between', // 💥 ESSA LINHA AJUDA MUITO
+    marginTop: 20,
   },
 
   // HEADER
@@ -239,8 +250,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     marginTop: '0%',
   },
-  cardIcon: {
-    fontSize: 40,
+  cardIconImage: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
   },
   cardTitle: {
     color: '#FFFFFF',
@@ -278,9 +291,11 @@ const styles = StyleSheet.create({
     borderColor: '#3d967e',
   },
 
-  exploreIcon: {
-    fontSize: 36,
-    marginBottom: 8,
+  exploreIconImage: {
+    width: 70,
+    height: 70,
+    marginBottom: 0,
+    resizeMode: 'contain',
   },
   exploreTitle: {
     color: '#FFFFFF',
