@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // 👈 ADICIONADO
+import AsyncStorage from '@react-native-async-storage/async-storage'; // ARMAZENAMENTO DAS VARIAVEIS
 
 ///////////////
 
@@ -72,10 +72,10 @@ export default function GameScreen({navigation}) {
   const [score, setScore] = useState(0);
   const [wrongPair, setWrongPair] = useState(null);
 
-  const currentPhase = phases[phaseIndex];
+  const currentPhase = phases[phaseIndex] || [];
 
   const shuffledDescriptions = useMemo(() => {
-    return shuffle(currentPhase);
+  return shuffle(currentPhase || []);
   }, [currentPhase]);
 
   // SALVA O SCORE TOTALL
@@ -172,16 +172,13 @@ export default function GameScreen({navigation}) {
     return (
       <LinearGradient colors={['#080018', '#12003b', '#080018']} style={styles.container}>
         <Image
-          source={require('../assets/background-dna2.png')} // usa essa imagem que você mandou
+          source={require('../assets/background-dna2.png')} 
           style={styles.backgroundImage}
         />
         <View style={[styles.content, { justifyContent: 'center' }]}>
           <View>
             <View style={styles.logoArea}>
-              <Image
-                source={require('../assets/logo-meio-match.png')}
-                style={styles.logo}
-              />
+              
             </View>
             <Text style={styles.title}>
               Interligue os conceitos{"\n"}
@@ -214,7 +211,7 @@ export default function GameScreen({navigation}) {
     return (
       <LinearGradient colors={['#080018', '#12003b', '#080018']} style={styles.container}>
         <Image
-          source={require('../assets/background-dna2.png')} // usa essa imagem que você mandou
+          source={require('../assets/background-dna2.png')}
           style={styles.backgroundImage}
         />
         <View style={[styles.content, { justifyContent: 'center' }]}>
@@ -254,8 +251,9 @@ export default function GameScreen({navigation}) {
         <View style={styles.gameArea}>
           <View style={styles.row}>
             <View style={styles.column}>
-              {currentPhase.map(item => (
+              {(currentPhase || []).map(item => (
                 <TouchableOpacity
+                  collapsable={false}
                   key={item.id}
                   style={[
                     styles.card,
@@ -264,14 +262,15 @@ export default function GameScreen({navigation}) {
                   ]}
                   onPress={() => setSelectedConcept(item)}
                 >
-                  <Text style={styles.text}>{item.concept}</Text>
+                  <Text style={styles.text}>{item?.concept ?? ''}</Text>
                 </TouchableOpacity>
               ))}
             </View>
 
             <View style={styles.column}>
-              {shuffledDescriptions.map(item => (
+              {(shuffledDescriptions || []).map(item => (
                 <TouchableOpacity
+                  collapsable={false}
                   key={item.id}
                   style={[
                     styles.card,
@@ -280,8 +279,9 @@ export default function GameScreen({navigation}) {
                   ]}
                   onPress={() => setSelectedDescription(item)}
                 >
-                  <Text style={styles.text}>{item.description}</Text>
+                  <Text style={styles.text}>{item?.description ?? ''}</Text>
                 </TouchableOpacity>
+
               ))}
             </View>
           </View>
@@ -386,8 +386,8 @@ const styles = StyleSheet.create({
 
   subtitle: { color: '#fff', fontSize: 20, marginVertical: 20 },
 
-  gameArea: {
-    maxHeight: '65%', // controla o espaço do jogo
+   gameArea: {
+    flex: 1, // controla o espaço do jogo
   },
 
   row: { 
@@ -406,11 +406,15 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 14,
     marginBottom: 10,
+    minHeight: 50, // 👈 MUITO IMPORTANTE
+    justifyContent: 'center',
   },
+
   text: { 
     color: '#fff', 
     textAlign: 'center',
     fontSize: 12,
+    includeFontPadding: false, // 👈 ajuda no Android
   },
 
   correct: { backgroundColor: '#7ef9c6' },

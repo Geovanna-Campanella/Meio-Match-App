@@ -80,7 +80,7 @@ export default function RegisterScreen({ navigation, setIsLogged }) {
             value={nome}
             onChangeText={setNome} 
           />
-          
+
           <TextInput
             style={styles.input}
             placeholder="Código genético (senha)"
