@@ -25,7 +25,7 @@ export default function DetailScreen({ route, navigation }) {
   if (!title || !content) {
     return (
       <View style={styles.container}>
-        <Text style={{ color: 'white' }}>Erro ao carregar 😢</Text>
+        <Text style={{ color: 'white' }}>Erro ao carregar</Text>
       </View>
     );
   }
@@ -38,7 +38,6 @@ export default function DetailScreen({ route, navigation }) {
         showsVerticalScrollIndicator={false}
       >
 
-        {/* 🔙 VOLTAR */}
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}

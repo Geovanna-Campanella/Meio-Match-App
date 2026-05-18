@@ -95,30 +95,6 @@ export default function HomeScreen({ navigation }) {
           </LinearGradient>
         </View>
 
-        {/* CONTINUAR */}
-        <Text style={styles.sectionTitle}>CONTINUAR</Text>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-          <LinearGradient
-            colors={['#46157b', '#2e0358']}
-            locations={[0, 0.6, 1]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.cardContinuar}
-          >
-            <Image
-              source={require('../assets/icon-meiose.png')}
-              style={styles.cardIconImage}
-            />
-            <View>
-              <Text style={styles.cardTitle}>Meiose</Text>
-              <Text style={styles.cardSubtitle}>
-                Memorize os conceitos e relacione os pares
-              </Text>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-
         {/* EXPLORE */}
         <Text style={styles.sectionTitle}>EXPLORE</Text>
 
@@ -145,6 +121,30 @@ export default function HomeScreen({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* CONTINUAR */}
+        <Text style={styles.sectionTitle}>CONTINUAR</Text>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Game')}>
+          <LinearGradient
+            colors={['#46157b', '#2e0358']}
+            locations={[0, 0.6, 1]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.cardContinuar}
+          >
+            <Image
+              source={require('../assets/icon-meiose.png')}
+              style={styles.cardIconImage}
+            />
+            <View>
+              <Text style={styles.cardTitle}>Meiose</Text>
+              <Text style={styles.cardSubtitle}>
+                Memorize os conceitos e relacione os pares
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
 
         {/* ESPAÇO FINAL PRA SCROLL FUNCIONAR */}
         <View style={{ height: 120 }} />
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1A1650',
     borderRadius: 16,
     padding: 20,
-    marginBottom: 24,
+    marginBottom: '2%',
   },
   headerSub: {
     color: '#8B7EC8',
@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: '2%',
+    marginTop: '5%',
     letterSpacing: 1,
   },
 

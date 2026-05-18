@@ -139,6 +139,19 @@ export default function ProfileScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.areaEquipe}>
+          <TouchableOpacity
+            style={styles.botaoEquipe}
+            onPress={() => navigation.navigate('Equipe')}
+          >
+            <Text style={styles.textoEquipe}>
+              Conhecer a equipe de criadores
+            </Text>
+
+            <Text style={styles.setaEquipe}>›</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
 
       {/* NAV */}
@@ -327,6 +340,38 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 4,
   },
+  
+  // ---- Botão equipe ----
+areaEquipe: {
+  marginTop: 'auto',
+  paddingBottom: 10,
+},
+
+botaoEquipe: {
+  marginTop: 22,
+  paddingVertical: 14,
+  paddingHorizontal: 18,
+  borderRadius: 14,
+
+  backgroundColor: 'rgba(255,255,255,0.02)',
+
+  borderWidth: 1,
+  borderColor: '#2D2870',
+
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+},
+
+textoEquipe: {
+  color: '#A0A0C0',
+  fontSize: 14,
+},
+
+setaEquipe: {
+  color: '#6B5FA0',
+  fontSize: 20,
+},
 
   //BOTTOM BAR
   bottomBar: {

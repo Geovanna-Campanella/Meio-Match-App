@@ -13,6 +13,7 @@ import GameScreen from './screens/GameScreen';
 import ConteudoScreen from './screens/ConteudoScreen';
 import DetailScreen from './screens/DetailScreen';
 import ProfileEditScreen from './screens/ProfileEditScreen'
+import DevsScreen from './screens/DevsScreen'
 
 const Stack = createStackNavigator();
 
@@ -42,19 +43,20 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         
         {isLogged ? (
-          // 🔥 USUÁRIO LOGADO
+          // USUÁRIO LOGADO
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Game" component={GameScreen} />
             <Stack.Screen name="Conteudo" component={ConteudoScreen} />
+            <Stack.Screen name="Equipe" component={DevsScreen} />
             <Stack.Screen name="Detail" component={DetailScreen} />
             <Stack.Screen name="ProfileEdit">
               {(props) => <ProfileEditScreen {...props} setIsLogged={setIsLogged} />}
             </Stack.Screen>
           </>
         ) : (
-          // 🧬 USUÁRIO NÃO LOGADO
+          // USUÁRIO NÃO LOGADO
           <>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="Register">

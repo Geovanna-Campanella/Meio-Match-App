@@ -257,6 +257,7 @@ export default function GameScreen({navigation}) {
                   key={item.id}
                   style={[
                     styles.card,
+                    selectedConcept?.id === item.id && styles.selectedConcept,
                     matches.includes(item.id) && styles.correct,
                     wrongPair?.c === item.id && styles.wrong,
                   ]}
@@ -274,6 +275,7 @@ export default function GameScreen({navigation}) {
                   key={item.id}
                   style={[
                     styles.card,
+                    selectedDescription?.id === item.id && styles.selectedDescription,
                     matches.includes(item.id) && styles.correct,
                     wrongPair?.d === item.id && styles.wrong,
                   ]}
@@ -471,4 +473,19 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     resizeMode: 'contain',
   },
+
+  selectedConcept: {
+  borderWidth: 2,
+  borderColor: '#7ef9c6',
+  backgroundColor: '#3b1a5f',
+  transform: [{ scale: 1.03 }],
+},
+
+selectedDescription: {
+  borderWidth: 2,
+  borderColor: '#ffd166',
+  backgroundColor: '#4a2f0a',
+  transform: [{ scale: 1.03 }],
+},  
+
 });
